@@ -13,7 +13,7 @@ def test_fill_form():
     number_for_type = '7123456789'
     birth_for_type = '12 Dec 1912'
     adress_for_type = 'Moscow'
-    file_path = os.path.abspath("files_for_test/photo_image.jpg")
+    # file_path = os.path.abspath("files_for_test/photo_image.jpg")
 
     # вводим имя
     first_name = browser.element('#firstName')
@@ -36,10 +36,15 @@ def test_fill_form():
     number.should(be.blank).type(number_for_type)
 
     # вводим дату рождения
-    birth = browser.element('#dateOfBirthInput')
+    # не уверен, что эти селекторы хорошие, но иначе не догадался, как сделать
+    birth_calendar = browser.element('#dateOfBirthInput').click()
+    month_select = browser.element('.react-datepicker__month-select').click().element('[value="11"]').click()
+    year_select = browser.element('.react-datepicker__year-select').click().element('[value="1912"]').click()
+    day_select = browser.element('[aria-label="Choose Thursday, December 12th, 1912"]').click()
+
     # тут мб зря использовал Keys, но через clear не получилось
     # birth.clear().set_value('12 Dec 1912').press_enter()
-    birth.send_keys(Keys.CONTROL + 'a').type(birth_for_type).press_enter()
+    # birth.send_keys(Keys.CONTROL + 'a').type(birth_for_type).press_enter()
 
     # выбираем хобби
     checkbox_hobbies = browser.element("[for='hobbies-checkbox-1']")
