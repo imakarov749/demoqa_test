@@ -25,29 +25,35 @@ def browser_configure(demo_qa_open_browser):
 
 
 def test_change_table():
+    first_name = 'Ivan'
+    last_name = 'Ivanov'
+    user_email = 'ivanov@ivan.com'
+    age = '190'
+    salary = '1900'
+    department = 'Department of magic'
     # открываем форму для добавления строки
     browser.element('#addNewRecordButton').click()
 
     # заполняем поля в форме
-    browser.element('#firstName').should(be.blank).click().type('Ivan')
-    browser.element('#lastName').should(be.blank).click().type('Ivanov')
-    browser.element('#userEmail').should(be.blank).click().type('ivanov@ivan.com')
-    browser.element('#age').should(be.blank).click().type('190')
-    browser.element('#salary').should(be.blank).click().type('1900')
-    browser.element('#department').should(be.blank).click().type('Department of magic')
+    browser.element('#firstName').should(be.blank).click().type(first_name)
+    browser.element('#lastName').should(be.blank).click().type(last_name)
+    browser.element('#userEmail').should(be.blank).click().type(user_email)
+    browser.element('#age').should(be.blank).click().type(age)
+    browser.element('#salary').should(be.blank).click().type(salary)
+    browser.element('#department').should(be.blank).click().type(department)
 
     # нажимаем на кнопку добавления строки, закрываем форму
     browser.element('#submit').click()
 
-    # проверяем, что строка добавилась, так и не понял, как проверить через css-селектор
-    # хотел посчитать элементы, чтобы выбрать нужный, но тоже не разобрался
+    # проверяем, что строка добавилась
+    # постарался сделать через css-селектор
 
-    check_added_email_by_xpath = '//*[@id="app"]/div/div/div[2]/div[2]/div[2]/div[3]/div[1]/div[2]/div[4]/div/div[4]'
-    browser.element(check_added_email_by_xpath).should(have.text('ivanov@ivan.com'))
+    # check_added_email_by_xpath = '//*[@id="app"]/div/div/div[2]/div[2]/div[2]/div[3]/div[1]/div[2]/div[4]/div/div[4]'
+    # browser.element(check_added_email_by_xpath).should(have.text('ivanov@ivan.com'))
     # browser.config.timeout = 10
-    # browser.element('[class^=ReactTable]').element('.rt-tbody').all('[class$=-even]').should(have.size(5))
+    #browser.all('.rt-td').should(have.exact_texts('Ivan', 'Ivanov'))
     # text('ivanov@ivan.com'))
-    # browser.element('#edit-record-4').element('..').should(have.text('ivanov@ivan.com'))
+    browser.element('div:nth-child(4) > div > div:nth-child(4)').should(have.text('ivanov@ivan.com'))
 
     # открываем pop up для редактирования второй строки
     browser.element('#edit-record-2').click()
