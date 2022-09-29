@@ -1,8 +1,3 @@
-from selene.support.shared import browser
-from selenium.webdriver import Keys
-from selene import be, have
-import os, re
-
 from model.pages import registration_form
 
 
